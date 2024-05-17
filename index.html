@@ -94,6 +94,9 @@
                 })
                 .then(data => {
                     const filteredCats = data.filter(cat => cat.health_issues === parseInt(healthInput));
+                    const totalCountElement = document.createElement('div');
+                     totalCountElement.textContent = `Health Issues for  ${healthInput} : `;
+                     resultElement.appendChild(totalCountElement);
                     if (filteredCats.length === 0) {
                         resultElement.textContent = "No cats found with that health issue.";
                     } else {
@@ -102,6 +105,10 @@
                             resultElement.appendChild(document.createTextNode(cat.name));
                             resultElement.appendChild(lineBreak);
                         });
+                        
+                        const totalCountElement = document.createElement('div');
+                totalCountElement.textContent = `total=${filteredCats.length}`;
+                resultElement.appendChild(totalCountElement);
                     }
                 })
                 .catch(error => {
@@ -132,10 +139,10 @@
                         const lineBreak = document.createElement('br');
                         var weightText;
                         if (selectedUnit === 'metric') {
-                            weightText = `${cat.weight.metric} kg`;
+                            weightText = `${cat.weight.metric} `;
                             
                         } else {
-                            weightText = ` ${cat.weight.imperial} lbs`;
+                            weightText = ` ${cat.weight.imperial} `;
                         }
                         weightsElement.appendChild(document.createTextNode(weightText));
                         weightsElement.appendChild(lineBreak);
@@ -159,7 +166,7 @@
                 .then(data => {
                     data.forEach(cat => {
                         
-                        var intelligenceText = `${cat.intelligence}. ${cat.child_friendly}<br>`;
+                        var intelligenceText = `${cat.intelligence} . ${cat.child_friendly}<br>`;
                         resultElement.innerHTML += intelligenceText ;
                     });
                 })
@@ -185,7 +192,7 @@
                         totalIntelligence += cat.intelligence;
                     });
                     const averageIntelligence = totalIntelligence / data.length;
-                    resultElement.textContent = `Average Intelligence of all cats: ${averageIntelligence.toFixed(2)}`;
+                    resultElement.textContent = `Average Intelligence : ${averageIntelligence.toFixed(2)}`;
                 })
                 .catch(error => {
                     console.error('Error fetching JSON:', error);
@@ -216,7 +223,7 @@
                         resultElement.textContent = "No child-friendly cats found.";
                     } else {
                         const averageIntelligence = totalIntelligence / count;
-                        resultElement.textContent = `Average Intelligence for Child Freiendly: ${averageIntelligence.toFixed(2)}`;
+                        resultElement.textContent = `Average Intelligence : ${averageIntelligence.toFixed(2)}`;
                     }
                 })
                 .catch(error => {
